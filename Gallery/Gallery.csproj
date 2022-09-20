@@ -7,7 +7,7 @@
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
     <SignAssembly>false</SignAssembly>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
     <StartupObject>Gallery.Program</StartupObject>
     <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
