@@ -13,11 +13,7 @@ namespace Gallery
         public MainForm()
         {
             InitializeComponent();
-            MainPanel.AutoScroll = true;
-            MainPanel.AutoScrollMinSize = MainPanel.GetPreferredSize(new Size(1, 1));
-            MainPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             MainPanel.HorizontalScroll.Maximum = 0;
-            MainPanel.VerticalScroll.Maximum = 0;
         }
 
         // Clean up MainPanel
@@ -100,10 +96,9 @@ namespace Gallery
             }
 
             MediaBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            MainPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             MainPanel.Controls.Add(MediaBox);
-            MainPanel.AutoScroll = true;
-            MainPanel.BorderStyle = BorderStyle.FixedSingle;
-
+            MainPanel.BorderStyle = BorderStyle.None;
             RedrawMediaBox(DrawX, DrawY, MediaBox);
 
             MediaBox.Click += (sender, EventArgs) =>
@@ -168,7 +163,6 @@ namespace Gallery
         // Redraw on window resize
         private void MainPanel_SizeChanged(object sender, EventArgs e)
         {
-            
             var DrawX = 0;
             var DrawY = 0;
 
