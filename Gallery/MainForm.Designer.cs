@@ -42,7 +42,7 @@ namespace Gallery
             this.SearchButton.Location = new System.Drawing.Point(12, 8);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(80, 31);
-            this.SearchButton.TabIndex = 0;
+            this.SearchButton.TabIndex = 1;
             this.SearchButton.Text = "👁";
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
@@ -56,7 +56,7 @@ namespace Gallery
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.PlaceholderText = "Enter directory or folder name";
             this.SearchBox.Size = new System.Drawing.Size(620, 31);
-            this.SearchBox.TabIndex = 1;
+            this.SearchBox.TabIndex = 0;
             this.SearchBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchBox_KeyPress);
             // 
             // MainPanel
@@ -68,7 +68,7 @@ namespace Gallery
             this.MainPanel.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.MainPanel.Location = new System.Drawing.Point(0, 50);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(820, 400);
+            this.MainPanel.Size = new System.Drawing.Size(816, 410);
             this.MainPanel.TabIndex = 4;
             this.MainPanel.SizeChanged += new System.EventHandler(this.MainPanel_SizeChanged);
             // 
