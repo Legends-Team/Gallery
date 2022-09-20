@@ -3,17 +3,30 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Gallery
 {
     public partial class MainForm : Form
     {
+        // Fields
+        private Size preferedSize;
+        private VScrollBar vbar;
+
         // Initialization
         public MainForm()
         {
             InitializeComponent();
-            MainPanel.HorizontalScroll.Maximum = 0;
+            vbar = new VScrollBar();
+            vbar.Height = MainPanel.Height;
+            vbar.Location = new Point(MainPanel.Width - vbar.Width, MainPanel.Height - vbar.Height);
+            vbar.Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
+            vbar.Value = 0;
+            vbar.Minimum = 0;
+            vbar.Maximum = MainPanel.Height;
+            vbar.SmallChange = 50;
+            preferedSize = new Size(0, DataClass.sizeY);
         }
 
         // Clean up MainPanel
@@ -43,6 +56,24 @@ namespace Gallery
                 MessageBox.Show(e.ToString());
                 return new List<string>();
             }
+        }
+
+        // Window sizing options
+        private void ResizeWindow()
+        {
+            MainForm.ActiveForm.AutoSize = false;
+            MainForm.ActiveForm.AutoScroll = false;
+            MainForm.ActiveForm.VerticalScroll.Enabled = true;
+            MainForm.ActiveForm.HorizontalScroll.Enabled = false;
+            MainForm.ActiveForm.HorizontalScroll.Maximum = 0;
+        }
+
+        // Panel sizing options
+        private void ResizePanel()
+        {
+            MainPanel.AutoScroll = false;
+            MainPanel.AutoSize = false;
+            MainPanel.AutoSizeMode = AutoSizeMode.GrowOnly;
         }
 
         // Draw in DrawPanel
@@ -85,7 +116,10 @@ namespace Gallery
         private void DrawMediaBox(string file, int DrawX, int DrawY)
         {
             PictureBox MediaBox = new PictureBox();
+            MediaBox.Anchor = AnchorStyles.Right;
             MediaBox.Size = new Size(DataClass.sizeX, DataClass.sizeY);
+            MediaBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
             try
             {
                 MediaBox.Image = Image.FromFile(file);
@@ -95,10 +129,8 @@ namespace Gallery
                 MessageBox.Show(e.Message, "Loading error");
             }
 
-            MediaBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            MainPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             MainPanel.Controls.Add(MediaBox);
-            MainPanel.BorderStyle = BorderStyle.None;
+
             RedrawMediaBox(DrawX, DrawY, MediaBox);
 
             MediaBox.Click += (sender, EventArgs) =>
@@ -111,7 +143,6 @@ namespace Gallery
         // Show images based on the window size
         private static void RedrawMediaBox(int DrawX, int DrawY, PictureBox MediaBox)
         {
-            MediaBox.Anchor = AnchorStyles.Left;
             MediaBox.Location = new Point(DrawX, DrawY);
             MediaBox.Show();
         }
@@ -132,10 +163,51 @@ namespace Gallery
             return path;
         }
 
+        // Prepare everything
         private void ActivateSequence()
         {
             DisposeControls();
+            ResizeWindow();
+            ResizePanel();
             Draw(FindFiles());
+            ScrollPanel();
+        }
+
+        // Reimplement scrolling in MainPanel
+        private void ScrollPanel()
+        {
+            MainPanel.Controls.Add(vbar);
+
+            vbar.Scroll += (sender, EventArgs) =>
+            {
+                var DrawX = 0;
+                var DrawY = 0;
+                var counter = 0;
+
+                try
+                {
+                    foreach (PictureBox control in MainPanel.Controls.OfType<PictureBox>())
+                    {
+                        control.Location = new Point(DrawX, DrawY - vbar.Value);
+                        DrawX += DataClass.sizeX;
+                        if (DrawX >= (MainPanel.Width) - DataClass.sizeX)
+                        {
+                            DrawX = 0;
+                            DrawY += DataClass.sizeY;
+                            counter++;
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    vbar.Value = vbar.Minimum;
+                    MessageBox.Show(e.Message, "Warning: " + e.GetType().ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                vbar.Maximum = (DataClass.sizeY * counter);
+                ActiveControl = vbar;
+                vbar.Focus();
+            };
+
         }
 
         // Show options
@@ -151,12 +223,16 @@ namespace Gallery
             ActivateSequence();
         }
 
-        // Enter key
+        // Key press behaviors
         private void SearchBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)13)
+            if (e.KeyChar == (char)Keys.Return)
             {
                 ActivateSequence();
+            }
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                Application.Exit();
             }
         }
 
@@ -166,7 +242,7 @@ namespace Gallery
             var DrawX = 0;
             var DrawY = 0;
 
-            foreach (PictureBox control in MainPanel.Controls)
+            foreach (PictureBox control in MainPanel.Controls.OfType<PictureBox>())
             {
                 RedrawMediaBox(DrawX, DrawY, control);
                 DrawX += DataClass.sizeX;
