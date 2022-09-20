@@ -1,7 +1,7 @@
 ﻿
 namespace Gallery
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace Gallery
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.SearchButton = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.MainPanel = new System.Windows.Forms.Panel();
@@ -38,7 +38,7 @@ namespace Gallery
             // 
             // SearchButton
             // 
-            this.SearchButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SearchButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SearchButton.Location = new System.Drawing.Point(12, 8);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(80, 31);
@@ -57,6 +57,7 @@ namespace Gallery
             this.SearchBox.PlaceholderText = "Enter directory or folder name";
             this.SearchBox.Size = new System.Drawing.Size(620, 31);
             this.SearchBox.TabIndex = 1;
+            this.SearchBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchBox_KeyPress);
             // 
             // MainPanel
             // 
@@ -69,11 +70,12 @@ namespace Gallery
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(820, 400);
             this.MainPanel.TabIndex = 4;
+            this.MainPanel.SizeChanged += new System.EventHandler(this.MainPanel_SizeChanged);
             // 
             // SettingsButton
             // 
             this.SettingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SettingsButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SettingsButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SettingsButton.Location = new System.Drawing.Point(725, 8);
             this.SettingsButton.Name = "SettingsButton";
             this.SettingsButton.Size = new System.Drawing.Size(80, 31);
@@ -82,7 +84,7 @@ namespace Gallery
             this.SettingsButton.UseVisualStyleBackColor = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -94,7 +96,7 @@ namespace Gallery
             this.Controls.Add(this.SearchButton);
             this.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Gallery";
             this.ResumeLayout(false);
             this.PerformLayout();

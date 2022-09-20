@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace Gallery
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         // Initialization
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             MainPanel.HorizontalScroll.Maximum = 0;
@@ -35,7 +35,7 @@ namespace Gallery
             }
             catch (DirectoryNotFoundException e)
             {
-                MessageBox.Show("Directory not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Directory not found", "Warning: " + e.Message, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return new List<string>();
             }
             catch (Exception e)
@@ -92,18 +92,28 @@ namespace Gallery
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message, "Loading error");
             }
+
             MediaBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            MainPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             MainPanel.Controls.Add(MediaBox);
-            MediaBox.Location = new Point(DrawX, DrawY);
-            MediaBox.Show();
+            MainPanel.BorderStyle = BorderStyle.None;
+            RedrawMediaBox(DrawX, DrawY, MediaBox);
 
             MediaBox.Click += (sender, EventArgs) =>
             {
                 DataClass.OpenPhotos(file);
             };
 
+        }
+
+        // Show images based on the window size
+        private static void RedrawMediaBox(int DrawX, int DrawY, PictureBox MediaBox)
+        {
+            MediaBox.Anchor = AnchorStyles.Left;
+            MediaBox.Location = new Point(DrawX, DrawY);
+            MediaBox.Show();
         }
 
         // Path to directory
@@ -122,6 +132,12 @@ namespace Gallery
             return path;
         }
 
+        private void ActivateSequence()
+        {
+            DisposeControls();
+            Draw(FindFiles());
+        }
+
         // Show options
         private void SettingsButton_Click(object sender, EventArgs e)
         {
@@ -132,8 +148,34 @@ namespace Gallery
         // Initiate search
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            DisposeControls();
-            Draw(FindFiles());
+            ActivateSequence();
+        }
+
+        // Enter key
+        private void SearchBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                ActivateSequence();
+            }
+        }
+
+        // Redraw on window resize
+        private void MainPanel_SizeChanged(object sender, EventArgs e)
+        {
+            var DrawX = 0;
+            var DrawY = 0;
+
+            foreach (PictureBox control in MainPanel.Controls)
+            {
+                RedrawMediaBox(DrawX, DrawY, control);
+                DrawX += DataClass.sizeX;
+                if (DrawX >= (MainPanel.Width) - DataClass.sizeX)
+                {
+                    DrawX = 0;
+                    DrawY += DataClass.sizeY;
+                }
+            }
         }
     }
 }
