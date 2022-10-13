@@ -1,7 +1,8 @@
 {
   "profiles": {
-    "Gallery": {
-      "commandName": "Project"
+    "Windows Machine": {
+      "commandName": "MsixPackage",
+      "nativeDebugging": false
     }
   }
 }

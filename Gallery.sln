@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gallery", "Gallery\Gallery.csproj", "{962C25DC-0DF4-413D-8497-4DDAE40F65DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GalleryData", "GalleryData\GalleryData.csproj", "{F85B4D8D-F872-4D13-9441-42D65BED2FE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalleryData", "GalleryData\GalleryData.csproj", "{F85B4D8D-F872-4D13-9441-42D65BED2FE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallery", "Gallery\Gallery.csproj", "{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{962C25DC-0DF4-413D-8497-4DDAE40F65DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{962C25DC-0DF4-413D-8497-4DDAE40F65DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{962C25DC-0DF4-413D-8497-4DDAE40F65DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{962C25DC-0DF4-413D-8497-4DDAE40F65DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F85B4D8D-F872-4D13-9441-42D65BED2FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F85B4D8D-F872-4D13-9441-42D65BED2FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F85B4D8D-F872-4D13-9441-42D65BED2FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F85B4D8D-F872-4D13-9441-42D65BED2FE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E330D0D5-5A38-466D-BDCD-9ED863C61D1A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
